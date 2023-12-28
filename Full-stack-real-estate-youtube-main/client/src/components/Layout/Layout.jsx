@@ -14,7 +14,7 @@ const Layout = () => {
   useFavourites()
   useBookings()
 
-  const { isAuthenticated, user, getAccessTokenWithPopup } = useAuth0();
+  const { isAuthenticated, user } = useAuth0();
   const { setUserDetails } = useContext(UserDetailContext);
 
   const { mutate } = useMutation({
@@ -23,21 +23,21 @@ const Layout = () => {
   });
 
   useEffect(() => {
-    const getTokenAndRegsiter = async () => {
+    // const getTokenAndRegsiter = async () => {
 
-      const res = await getAccessTokenWithPopup({
-        authorizationParams: {
-          audience: "http://localhost:8000",
-          scope: "openid profile email",
-        },
-      });
-      localStorage.setItem("access_token", res);
-      setUserDetails((prev) => ({ ...prev, token: res }));
-      mutate(res)
-    };
+    //   const res = await getAccessTokenWithPopup({
+    //     authorizationParams: {
+    //       audience: "http://localhost:8000",
+    //       scope: "openid profile email",
+    //     },
+    //   });
+    //   localStorage.setItem("access_token", res);
+    //   setUserDetails((prev) => ({ ...prev, token: res }));
+    //   mutate(res)
+    // };
 
 
-    isAuthenticated && getTokenAndRegsiter();
+    isAuthenticated && mutate();
   }, [isAuthenticated]);
 
   return (
